@@ -3,18 +3,12 @@ import Section from "./Section/Section";
 import FeedBackOptions from "./FeedbackOptions/FeedbackOptions";
 import Statistics from "./Statistics/Statistics";
 import Notification from "./Notification/Notification";
-// import { Component } from "react";
 
-function App () { 
-  // state = {
-  //   good: 0,
-  //   neutral: 0,
-  //   bad: 0
-  // };
-  
-  const[good, setGood] = useState(5);
-  const[neutral, setNeutral] = useState(4);
-  const[bad, setBad] = useState(2);
+const App = () => { 
+
+  const[good, setGood] = useState(0);
+  const[neutral, setNeutral] = useState(0);
+  const[bad, setBad] = useState(0);
   
   const handleGood = () => {
     setGood(prevGood => prevGood + 1)
@@ -28,19 +22,19 @@ function App () {
     setBad(prevBad => prevBad + 1)
   };
 
-  // const handleFeedback = (type) => {
-  //   useState((prevState) => {
-  //     const prevScore = prevState[type] || 0;
-  //     return {
-  //       [type]: prevScore + 1,
-  //     }
-  //   })
-  // };
-
-  
+  const handleFeedback = (type) => {
+    switch (type) { 
+      case "good": handleGood();
+        break;
+      case "neutral": handleNeutral();
+        break;
+      case "bad": handleBad();
+        break
+      default: return
+    }
+  };
 
   const countTotalFeedback = () => {
-    // const { good, neutral, bad } = this.state;
     return good + neutral + bad;
   };
 
@@ -53,20 +47,17 @@ function App () {
     return Math.round(totalInPercentage);
   };
   
-  // const options = Object.keys(this.state);
-  const options = [];
-  console.log(options);
+  const options = ["good", "neutral", "bad"];
+  
   const total = countTotalFeedback();
-  // console.log(total);
   
   return (
       <div>
         <Section title="Please leave feedback">
           <FeedBackOptions
             options={options}
-            // onLeaveFeedback={handleFeedback} />
-        />
-            </Section>  
+            onLeaveFeedback={handleFeedback} />
+        </Section>  
         <Section title="Statistics">
           {total
             ? <Statistics good={good} neutral={neutral} bad={bad} total={total} positivePercentage={countPositiveFeedbackPercentage()} />
