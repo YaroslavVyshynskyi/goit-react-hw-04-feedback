@@ -4,11 +4,11 @@ import FeedBackOptions from "./FeedbackOptions/FeedbackOptions";
 import Statistics from "./Statistics/Statistics";
 import Notification from "./Notification/Notification";
 
-const App = () => { 
+const App = () => {
 
-  const[good, setGood] = useState(0);
-  const[neutral, setNeutral] = useState(0);
-  const[bad, setBad] = useState(0);
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
   
   const handleGood = () => {
     setGood(prevGood => prevGood + 1)
@@ -23,7 +23,7 @@ const App = () => {
   };
 
   const handleFeedback = (type) => {
-    switch (type) { 
+    switch (type) {
       case "good": handleGood();
         break;
       case "neutral": handleNeutral();
@@ -47,7 +47,7 @@ const App = () => {
     return Math.round(totalInPercentage);
   };
   
-  const options = ["good", "neutral", "bad"];
+  const options = Object.keys({ good, neutral, bad });
   
   const total = countTotalFeedback();
   
